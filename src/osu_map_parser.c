@@ -206,7 +206,7 @@ unsigned int	OsuMap_getCategoryElementPositiveInteger(char **lines, char *name, 
 	char	*buffer = malloc(strlen(name) + 3);
 
 	if (!buffer) {
-		sprintf(err_buffer, "memory allocation error (%u)", strlen(name) + 3);
+		sprintf(err_buffer, "memory allocation error (%zu)", strlen(name) + 3);
 		longjmp(jump_buffer, true);
 	}
 	sprintf(buffer, "%s:", name);
@@ -234,7 +234,7 @@ bool	OsuMap_getCategoryElementBoolean(char **lines, char *name, char *err_buffer
 	char	*buffer = malloc(strlen(name) + 3);
 
 	if (!buffer) {
-		sprintf(err_buffer, "memory allocation error (%u)", strlen(name) + 3);
+		sprintf(err_buffer, "memory allocation error (%zu)", strlen(name) + 3);
 		longjmp(jump_buffer, true);
 	}
 	sprintf(buffer, "%s:", name);
@@ -264,7 +264,7 @@ int	OsuMap_getCategoryElementInteger(char **lines, char *name, char *err_buffer,
 	char	*buffer = malloc(strlen(name) + 3);
 
 	if (!buffer) {
-		sprintf(err_buffer, "memory allocation error (%u)", strlen(name) + 3);
+		sprintf(err_buffer, "memory allocation error (%zu)", strlen(name) + 3);
 		longjmp(jump_buffer, true);
 	}
 	sprintf(buffer, "%s:", name);
@@ -292,7 +292,7 @@ double	OsuMap_getCategoryElementPositiveFloat(char **lines, char *name, char *er
 	char	*buffer = malloc(strlen(name) + 3);
 
 	if (!buffer) {
-		sprintf(err_buffer, "memory allocation error (%u)", strlen(name) + 3);
+		sprintf(err_buffer, "memory allocation error (%zu)", strlen(name) + 3);
 		longjmp(jump_buffer, true);
 	}
 	sprintf(buffer, "%s:", name);
@@ -321,7 +321,7 @@ double	OsuMap_getCategoryElementFloat(char **lines, char *name, char *err_buffer
 	char	*buffer = malloc(strlen(name) + 3);
 
 	if (!buffer) {
-		sprintf(err_buffer, "memory allocation error (%u)", strlen(name) + 3);
+		sprintf(err_buffer, "memory allocation error (%zu)", strlen(name) + 3);
 		longjmp(jump_buffer, true);
 	}
 	sprintf(buffer, "%s:", name);
@@ -349,7 +349,7 @@ char	*OsuMap_getCategoryElementRaw(char **lines, char *name, char *err_buffer, j
 	char	*buffer = malloc(strlen(name) + 3);
 
 	if (!buffer) {
-		sprintf(err_buffer, "memory allocation error (%u)", strlen(name) + 3);
+		sprintf(err_buffer, "memory allocation error (%zu)", strlen(name) + 3);
 		longjmp(jump_buffer, true);
 	}
 	sprintf(buffer, "%s:", name);
@@ -375,7 +375,7 @@ OsuMap_unsignedIntegerArray	OsuMap_getCategoryElementUIntegerArray(char **lines,
 	char	*buffer = malloc(strlen(name) + 3);
 
 	if (!buffer) {
-		sprintf(err_buffer, "memory allocation error (%u)", strlen(name) + 3);
+		sprintf(err_buffer, "memory allocation error (%zu)", strlen(name) + 3);
 		longjmp(jump_buffer, true);
 	}
 	sprintf(buffer, "%s: ", name);
@@ -688,7 +688,7 @@ OsuMap_hitObject	OsuMap_parseLineToHitObject(char *line, char *err_buffer, jmp_b
 
 	len = OsuMap_getStringArraySize(elems);
 	if (len < 5) {
-		sprintf(err_buffer, "Invalid Hit object infos '%s': At least 5 fields expected but %i found", old, len);
+		sprintf(err_buffer, "Invalid Hit object infos '%s': At least 5 fields expected but %zu found", old, len);
 		free(old);
 		longjmp(jump_buffer, true);
 	}
@@ -701,7 +701,7 @@ OsuMap_hitObject	OsuMap_parseLineToHitObject(char *line, char *err_buffer, jmp_b
 
 	if (obj.type & HITOBJ_SLIDER) {
 		if (len < 8 || len > 11) {
-			sprintf(err_buffer, "Invalid hit object infos '%s': 8-11 fields expected but %i found", old, len);
+			sprintf(err_buffer, "Invalid hit object infos '%s': 8-11 fields expected but %zu found", old, len);
 			free(elems);
 			free(old);
 			longjmp(jump_buffer, true);
@@ -719,7 +719,7 @@ OsuMap_hitObject	OsuMap_parseLineToHitObject(char *line, char *err_buffer, jmp_b
 
 	} else if (obj.type & HITOBJ_SPINNER) {
 		if (len < 6 || len > 7) {
-			sprintf(err_buffer, "Invalid hit object infos '%s': 7 fields expected but %i found", old, len);
+			sprintf(err_buffer, "Invalid hit object infos '%s': 7 fields expected but %zu found", old, len);
 			free(elems);
 			free(old);
 			longjmp(jump_buffer, true);
@@ -737,7 +737,7 @@ OsuMap_hitObject	OsuMap_parseLineToHitObject(char *line, char *err_buffer, jmp_b
 
 	} else {
 		if (len < 5 || len > 6) {
-			sprintf(err_buffer, "Invalid hit object infos '%s': 6 fields expected but %i found", old, len);
+			sprintf(err_buffer, "Invalid hit object infos '%s': 6 fields expected but %zu found", old, len);
 			free(elems);
 			free(old);
 			longjmp(jump_buffer, true);
@@ -803,7 +803,7 @@ OsuMap_color	OsuMap_parseLineColor(char *line, char *err_buffer, jmp_buf jump_bu
 	for (; line[i] == ' '; i++);
 	elems = OsuMap_splitString(&line[i], ',', err_buffer, jump_buffer);
 	if (OsuMap_getStringArraySize(elems) != 3) {
-		sprintf(err_buffer, "Invalid color '%s': Expected RGB value but %u values were found", line, OsuMap_getStringArraySize(elems));
+		sprintf(err_buffer, "Invalid color '%s': Expected RGB value but %zu values were found", line, OsuMap_getStringArraySize(elems));
 		free(elems);
 		longjmp(jump_buffer, true);
 	}
