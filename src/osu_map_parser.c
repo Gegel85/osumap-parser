@@ -446,7 +446,7 @@ OsuMap_editorInfos	OsuMap_getCategoryEditor(OsuMapCategory *category, char *err_
 
 	infos.bookmarks =	OsuMap_getCategoryElementUIntegerArray	(category->lines, "Bookmarks",		err_buffer, jump_buffer, false);
 	infos.distanceSpacing =	OsuMap_getCategoryElementFloat		(category->lines, "DistanceSpacing",	err_buffer, jump_buffer, false);
-	infos.beatDivision =	OsuMap_getCategoryElementPositiveInteger(category->lines, "BeatDivisor",	err_buffer, jump_buffer, false);
+	infos.beatDivision =	OsuMap_getCategoryElementPositiveFloat(category->lines, "BeatDivisor",	err_buffer, jump_buffer, false);
 	infos.distanceSpacing =	OsuMap_getCategoryElementPositiveInteger(category->lines, "GridSize",		err_buffer, jump_buffer, false);
 	infos.timeLineZoom =	OsuMap_getCategoryElementPositiveFloat	(category->lines, "TimelineZoom",	err_buffer, jump_buffer, false);
 	return infos;
@@ -557,8 +557,8 @@ OsuIntegerVector	OsuMap_getIntegerVector(char *str, char *err_buffer, jmp_buf ju
 		free(elems);
 		longjmp(jump_buffer, true);
 	}
-	vector.x = OsuMap_getInteger(elems[0], 0, 0, err_buffer, jump_buffer);
-	vector.y = OsuMap_getInteger(elems[1], 0, 0, err_buffer, jump_buffer);
+	vector.x = (int)OsuMap_getInteger(elems[0], 0, 0, err_buffer, jump_buffer);
+	vector.y = (int)OsuMap_getInteger(elems[1], 0, 0, err_buffer, jump_buffer);
 	free(line);
 	free(elems);
 	return vector;
@@ -592,10 +592,10 @@ OsuMap_hitObjectAddition	OsuMap_getExtraInfos(char *line, char *err_buffer, jmp_
 		longjmp(jump_buffer, true);
 	}
 	memset(&infos, 0, sizeof(infos));
-	infos.sampleSet.sampleSet =		OsuMap_getInteger(elems[0], 0, 3,   err_buffer, jump_buffer);
-	infos.sampleSet.additionsSampleSet =	OsuMap_getInteger(elems[1], 0, 3,   err_buffer, jump_buffer);
+	infos.sampleSet.sampleSet =		(char)OsuMap_getInteger(elems[0], 0, 3,   err_buffer, jump_buffer);
+	infos.sampleSet.additionsSampleSet =	(char)OsuMap_getInteger(elems[1], 0, 3,   err_buffer, jump_buffer);
 	infos.customIndex =			OsuMap_getInteger(elems[2], 0, 0,   err_buffer, jump_buffer);
-	infos.sampleVolume =			OsuMap_getInteger(elems[3], 0, 100, err_buffer, jump_buffer);
+	infos.sampleVolume =			(char)OsuMap_getInteger(elems[3], 0, 100, err_buffer, jump_buffer);
 	infos.fileName =			elems[4];
 	free(elems);
 	return infos;
@@ -663,8 +663,8 @@ OsuMap_hitObjectSliderInfos	OsuMap_getSliderInfos(char **elems, char *err_buffer
 			}
 			for (int i = 0; nbr[i]; i++) {
 				buffer = OsuMap_splitString(nbr[i], ':', err_buffer, jump_buffer);
-				infos.edgeAdditions[i].sampleSet = OsuMap_getInteger(buffer[0], 0, 3, err_buffer, jump_buffer);
-				infos.edgeAdditions[i].additionsSampleSet = OsuMap_getInteger(buffer[1], 0, 3, err_buffer, jump_buffer);
+				infos.edgeAdditions[i].sampleSet = (char)OsuMap_getInteger(buffer[0], 0, 3, err_buffer, jump_buffer);
+				infos.edgeAdditions[i].additionsSampleSet = (char)OsuMap_getInteger(buffer[1], 0, 3, err_buffer, jump_buffer);
 				free(buffer);
 			}
 			free(nbr);
@@ -687,8 +687,8 @@ OsuMap_hitObject	OsuMap_parseLineToHitObject(char *line, char *err_buffer, jmp_b
 		longjmp(jump_buffer, true);
 	}
 	memset(&obj, 0, sizeof(obj));
-	obj.position.x =	OsuMap_getInteger(elems[0], 0, 512, err_buffer, jump_buffer);
-	obj.position.y =	OsuMap_getInteger(elems[1], 0, 384, err_buffer, jump_buffer);
+	obj.position.x =	(int)OsuMap_getInteger(elems[0], 0, 512, err_buffer, jump_buffer);
+	obj.position.y =	(int)OsuMap_getInteger(elems[1], 0, 384, err_buffer, jump_buffer);
 	obj.timeToAppear =	OsuMap_getInteger(elems[2], 0, 0,   err_buffer, jump_buffer);
 	obj.type =		OsuMap_getInteger(elems[3], 0, 255, err_buffer, jump_buffer);
 	obj.hitSound =		OsuMap_getInteger(elems[4], 0, 15,  err_buffer, jump_buffer);
@@ -767,9 +767,9 @@ OsuMap_hitObjectArray	OsuMap_getCategoryHitObject(OsuMapCategory *category, char
 
 OsuMap_color	OsuMap_parseLineColor(char *line, char *err_buffer, jmp_buf jump_buffer, int nb)
 {
-	OsuMap_color	 color;
+	OsuMap_color	color;
 	char		buffer[11];
-	int		i = 5;
+	unsigned int	i = 5;
 	char		**elems = NULL;
 
 	sprintf(buffer, "%i", nb + 1);
@@ -878,7 +878,7 @@ OsuMap_timingPointArray	OsuMap_getCatergoryTimingPoints(OsuMapCategory *category
 		if (OsuMap_getStringArraySize(elems) > 4)
 			elements.content[i].sampleIndex = OsuMap_getInteger(elems[4], 0, 0, err_buffer, jump_buffer);
 		if (OsuMap_getStringArraySize(elems) > 5)
-			elements.content[i].volume = OsuMap_getInteger(elems[5], 0, 0, err_buffer, jump_buffer);
+			elements.content[i].volume = (char)OsuMap_getInteger(elems[5], 0, 0, err_buffer, jump_buffer);
 		free(elems);
 	}
 	return elements;
