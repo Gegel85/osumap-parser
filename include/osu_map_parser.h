@@ -19,7 +19,7 @@ enum OsuGameMode {
 
 #endif
 
-enum OsuHitObjectType : unsigned int {
+enum OsuHitObjectType {
 	HITOBJ_CIRCLE          = 1U << 0U,
 	HITOBJ_SLIDER          = 1U << 1U,
 	HITOBJ_NEW_COMBO       = 1U << 2U,
@@ -31,7 +31,7 @@ enum OsuHitObjectType : unsigned int {
 	HITOBJ_MANIA_LONG_NOTE = 1U << 7U,
 };
 
-enum OsuHitSounds : unsigned int {
+enum OsuHitSounds {
 	HIT_NORMAL  = 1U << 0U,
 	HIT_WHISTLE = 1U << 1U,
 	HIT_FINISH  = 1U << 2U,
