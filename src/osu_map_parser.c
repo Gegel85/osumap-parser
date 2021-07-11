@@ -59,7 +59,7 @@ char	**OsuMap_splitString(char *str, char separator, char *error_buffer, jmp_buf
 	return array;
 }
 
-bool	OsuMap_isPositiveInteger(char *str)
+bool	OsuMap_isPositiveInteger(const char *str)
 {
 	int i = 0;
 
@@ -67,7 +67,7 @@ bool	OsuMap_isPositiveInteger(char *str)
 	return str[i] == 0 && i > 0;
 }
 
-bool	OsuMap_isInteger(char *str)
+bool	OsuMap_isInteger(const char *str)
 {
 	int i = 0;
 
@@ -76,7 +76,7 @@ bool	OsuMap_isInteger(char *str)
 	return str[i] == 0 && i > 0;
 }
 
-bool	OsuMap_isFloat(char *str)
+bool	OsuMap_isFloat(const char *str)
 {
 	int i = 0;
 
@@ -88,7 +88,7 @@ bool	OsuMap_isFloat(char *str)
 	return str[i] == 0 && i > 0;
 }
 
-bool	OsuMap_isPositiveFloat(char *str)
+bool	OsuMap_isPositiveFloat(const char *str)
 {
 	int i = 0;
 
