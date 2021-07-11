@@ -67,7 +67,7 @@ typedef struct OsuMap_generalInfos {
 typedef struct OsuMap_editorInfos {
 	OsuMap_unsignedIntegerArray	bookmarks;
 	double				distanceSpacing;
-	int				beatDivision;
+	double				beatDivision;
 	int				gridSize;
 	double				timeLineZoom;
 } OsuMap_editorInfos;
