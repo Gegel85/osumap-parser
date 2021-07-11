@@ -34,7 +34,7 @@ char	**OsuMap_splitString(char *str, char separator, char *error_buffer, jmp_buf
 
 	array = malloc(2 * sizeof(*array));
 	if (!array){
-		sprintf(error_buffer, "Memory allocation error (%luB)", (unsigned long)(2 * sizeof(*array)));
+		sprintf(error_buffer, "Memory allocation error (%luB)", 2 * sizeof(*array));
 		longjmp(jump_buffer, true);
 	}
 	if (!str) {
@@ -164,7 +164,7 @@ OsuMapCategory	*OsuMap_getCategories(char **lines, char *error_buffer, jmp_buf j
 	if (!lines[0]) {
 		categories = calloc(1, sizeof(*categories));
 		if (!categories) {
-			sprintf(error_buffer, "Memory allocation error (%luB)", (unsigned long)sizeof(*categories));
+			sprintf(error_buffer, "Memory allocation error (%luB)", sizeof(*categories));
 			longjmp(jump_buffer, true);
 		}
 	}
@@ -176,7 +176,7 @@ OsuMapCategory	*OsuMap_getCategories(char **lines, char *error_buffer, jmp_buf j
 	}
 	categories = calloc(len + 1, sizeof(*categories));
 	if (!categories) {
-		sprintf(error_buffer, "Memory allocation error (%luB)", (unsigned long)((len + 1) * sizeof(*categories)));
+		sprintf(error_buffer, "Memory allocation error (%luB)", (len + 1) * sizeof(*categories));
 		longjmp(jump_buffer, true);
 	}
 	for (size_t i = 0; lines[i]; currentIndex++) {
@@ -192,7 +192,7 @@ OsuMapCategory	*OsuMap_getCategories(char **lines, char *error_buffer, jmp_buf j
 		for (; lines[i] && lines[i][0] != '['; i++);
 		categories[currentIndex].lines = malloc((i - start + 1) * sizeof(*categories[currentIndex].lines));
 		if (!categories[currentIndex].lines) {
-			sprintf(error_buffer, "Memory allocation error (%luB)", (unsigned long)((i - start + 1) * sizeof(*categories[currentIndex].lines)));
+			sprintf(error_buffer, "Memory allocation error (%luB)", (i - start + 1) * sizeof(*categories[currentIndex].lines));
 			longjmp(jump_buffer, true);
 		}
 		memcpy(categories[currentIndex].lines, &lines[start], (i - start) * sizeof(*lines));
@@ -386,7 +386,7 @@ OsuMap_unsignedIntegerArray	OsuMap_getCategoryElementUIntegerArray(char **lines,
 				result.length += lines[i][j] == ',';
 			result.content = malloc((result.length + 1) * sizeof(*result.content));
 			if (!result.content) {
-				sprintf(err_buffer, "Memory allocation error (%luB)", (unsigned long)(result.length * sizeof(*result.content)));
+				sprintf(err_buffer, "Memory allocation error (%luB)", result.length * sizeof(*result.content));
 				longjmp(jump_buffer, true);
 			}
 			values = OsuMap_splitString(lines[i] + strlen(name) + 2, ',', err_buffer, jump_buffer);
@@ -576,7 +576,7 @@ OsuIntegerVectorArray	OsuMap_getIntegerVectorArray(char *str, char *err_buffer, 
 	array.length = OsuMap_getStringArraySize(elems);
 	array.content = malloc(array.length * sizeof(*array.content));
 	if (!array.content) {
-		sprintf(err_buffer, "Memory allocation error (%luB)", (unsigned long)(array.length * sizeof(*array.content)));
+		sprintf(err_buffer, "Memory allocation error (%luB)", array.length * sizeof(*array.content));
 		free(elems);
 		longjmp(jump_buffer, true);
 	}
@@ -643,8 +643,7 @@ OsuMap_hitObjectSliderInfos	OsuMap_getSliderInfos(char **elems, char *err_buffer
 		}
 		infos.edgeHitsounds = malloc(OsuMap_getStringArraySize(nbr) + 1);
 		if (!infos.edgeHitsounds) {
-			sprintf(err_buffer, "Memory allocation error (%luB)",
-				(unsigned long)(OsuMap_getStringArraySize(nbr) + 1));
+			sprintf(err_buffer, "Memory allocation error (%luB)", OsuMap_getStringArraySize(nbr) + 1);
 			free(nbr);
 			longjmp(jump_buffer, true);
 		}
@@ -662,8 +661,7 @@ OsuMap_hitObjectSliderInfos	OsuMap_getSliderInfos(char **elems, char *err_buffer
 			}
 			infos.edgeAdditions = malloc((OsuMap_getStringArraySize(nbr) + 1) * sizeof(*infos.edgeAdditions));
 			if (!infos.edgeAdditions) {
-				sprintf(err_buffer, "Memory allocation error (%luB)",
-					(unsigned long)((OsuMap_getStringArraySize(nbr) + 1) * sizeof(*infos.edgeAdditions)));
+				sprintf(err_buffer, "Memory allocation error (%luB)", (OsuMap_getStringArraySize(nbr) + 1) * sizeof(*infos.edgeAdditions));
 				free(nbr);
 				longjmp(jump_buffer, true);
 			}
@@ -708,7 +706,7 @@ OsuMap_hitObject	OsuMap_parseLineToHitObject(char *line, char *err_buffer, jmp_b
 		}
 		obj.additionalInfos = malloc(sizeof(OsuMap_hitObjectSliderInfos));
 		if (!obj.additionalInfos) {
-			sprintf(err_buffer, "Memory allocation error (%luB)", (unsigned long)sizeof(OsuMap_hitObjectSliderInfos));
+			sprintf(err_buffer, "Memory allocation error (%luB)", sizeof(OsuMap_hitObjectSliderInfos));
 			free(elems);
 			free(old);
 			longjmp(jump_buffer, true);
@@ -726,7 +724,7 @@ OsuMap_hitObject	OsuMap_parseLineToHitObject(char *line, char *err_buffer, jmp_b
 		}
 		obj.additionalInfos = malloc(sizeof(unsigned long));
 		if (!obj.additionalInfos) {
-			sprintf(err_buffer, "Memory allocation error (%luB)", (unsigned long)sizeof(unsigned long));
+			sprintf(err_buffer, "Memory allocation error (%luB)", sizeof(unsigned long));
 			free(elems);
 			free(old);
 			longjmp(jump_buffer, true);
@@ -763,7 +761,7 @@ OsuMap_hitObjectArray	OsuMap_getCategoryHitObject(OsuMapCategory *category, char
 	for (; category->lines[elements.length]; elements.length++);
 	elements.content = malloc(elements.length * sizeof(*elements.content));
 	if (!elements.content) {
-		sprintf(err_buffer, "Memory allocation error (%luB)", (unsigned long)(elements.length * sizeof(*elements.content)));
+		sprintf(err_buffer, "Memory allocation error (%luB)", elements.length * sizeof(*elements.content));
 		longjmp(jump_buffer, true);
 	}
 	for (int i = 0; category->lines[i]; i++)
@@ -831,7 +829,7 @@ OsuMap_colorArray	OsuMap_getCategoryColors(OsuMapCategory *category, char *err_b
 		elements.length += OsuMap_stringStartsWith(category->lines[i], "Combo");
 	elements.content = malloc(elements.length * sizeof(*elements.content));
 	if (!elements.content) {
-		sprintf(err_buffer, "Memory allocation error (%luB)", (unsigned long)(elements.length * sizeof(*elements.content)));
+		sprintf(err_buffer, "Memory allocation error (%luB)", elements.length * sizeof(*elements.content));
 		longjmp(jump_buffer, true);
 	}
 	for (int i = 0; category->lines[i]; i++)
@@ -862,7 +860,7 @@ OsuMap_timingPointArray	OsuMap_getCatergoryTimingPoints(OsuMapCategory *category
 	for (; category->lines[elements.length]; elements.length++);
 	elements.content = malloc(elements.length * sizeof(*elements.content));
 	if (!elements.content) {
-		sprintf(err_buffer, "Memory allocation error (%luB)", (unsigned long)(elements.length * sizeof(*elements.content)));
+		sprintf(err_buffer, "Memory allocation error (%luB)", elements.length * sizeof(*elements.content));
 		longjmp(jump_buffer, true);
 	}
 	for (int i = 0; category->lines[i]; i++) {
